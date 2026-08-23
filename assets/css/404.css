@@ -1,0 +1,237 @@
+/* Import main stylesheet for global styles and variables */
+@import url('./main.css');
+
+/* Set dark theme as default */
+:root {
+  --error-bg: #2d2d2d;
+  --error-text: #f5f5f5;
+  --error-muted: #888;
+  --error-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --suggestions-bg: rgba(255, 255, 255, 0.05);
+  --btn-secondary-bg: rgba(255, 255, 255, 0.1);
+  --btn-secondary-hover: rgba(255, 255, 255, 0.15);
+  --icon-filter: brightness(0) invert(1);
+}
+
+/* Light theme overrides */
+html:not(.dark) {
+  --error-bg: var(--bg-color);
+  --error-text: var(--text-color);
+  --error-muted: var(--text-muted);
+  --error-shadow: var(--shadow-lg);
+  --suggestions-bg: var(--bg-alt);
+  --btn-secondary-bg: var(--bg-alt);
+  --btn-secondary-hover: var(--bg-darker);
+  --icon-filter: none;
+}
+
+/**
+ * 404 Error Page Component
+ * Clean, minimal design without hero image
+ */
+.error-hero {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  margin-top: var(--header-height);
+  background: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--spacing-lg) var(--spacing-md);
+  min-height: 40vh;
+}
+
+.error-hero-content {
+  max-width: var(--container-max);
+  padding: var(--spacing-md);
+  z-index: 1;
+}
+
+.error-hero h1 {
+  font-size: 5rem;
+  color: #ffffff;
+  margin-bottom: var(--spacing-sm);
+  line-height: 1.2;
+  text-shadow: var(--shadow-sm);
+}
+
+.error-hero p {
+  font-size: 1.5rem;
+  color: #ffffff;
+  max-width: 600px;
+  margin: 0 auto;
+  opacity: 0.9;
+}
+
+/* Error Content Section */
+.error-content {
+  background: var(--error-bg);
+  box-shadow: var(--error-shadow);
+  max-width: 800px;
+  margin: -50px auto 0;
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  position: relative;
+  z-index: 2;
+  margin-bottom: var(--footer-height);
+}
+
+.error-message {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.error-message h2 {
+  font-size: 2rem;
+  color: var(--error-text);
+  margin-bottom: 1rem;
+}
+
+.error-message p {
+  font-size: 1.1rem;
+  color: var(--error-muted);
+}
+
+/* Suggestions Section */
+.error-suggestions {
+  background: var(--suggestions-bg);
+  border-radius: var(--radius-md);
+  padding: 1.5rem 2rem;
+  margin: 2rem 0;
+}
+
+.error-suggestions ul {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+}
+
+.error-suggestions li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  color: var(--error-text);
+}
+
+/* Action Buttons */
+.error-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.error-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.error-btn.primary {
+  background: var(--primary-color);
+  color: white;
+}
+
+.error-btn.primary:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(4, 170, 109, 0.2);
+}
+
+.error-btn.secondary {
+  background: var(--btn-secondary-bg);
+  color: var(--error-text);
+}
+
+.error-btn.secondary:hover {
+  background: var(--btn-secondary-hover);
+  transform: translateY(-2px);
+}
+
+/* Dark mode SVG icon adjustments */
+html.dark .error-btn img {
+  filter: var(--icon-filter);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .error-hero {
+    margin-top: var(--header-height-mobile);
+    min-height: 30vh;
+    padding: var(--spacing-md);
+  }
+
+  .error-hero-content {
+    padding: var(--spacing-sm);
+  }
+
+  .error-hero h1 {
+    font-size: 3.5rem;
+  }
+
+  .error-hero p {
+    font-size: 1.25rem;
+  }
+
+  .error-content {
+    margin: -30px var(--spacing-sm) 0;
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+  }
+
+  .error-message h2 {
+    font-size: 1.75rem;
+  }
+
+  .error-suggestions {
+    padding: var(--spacing-md);
+    margin: var(--spacing-md) 0;
+  }
+
+  .error-btn {
+    width: 100%;
+    justify-content: center;
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  .error-actions {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .error-hero h1 {
+    font-size: 3rem;
+  }
+
+  .error-hero p {
+    font-size: 1.1rem;
+  }
+
+  .error-content {
+    padding: var(--spacing-md);
+  }
+
+  .error-message h2 {
+    font-size: 1.5rem;
+  }
+
+  .error-suggestions {
+    padding: var(--spacing-md);
+  }
+
+  .error-suggestions li {
+    font-size: 0.95rem;
+  }
+}
