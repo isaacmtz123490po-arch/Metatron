@@ -110,6 +110,25 @@ input[type=range]{width:110px;accent-color:var(--accent)}
 .app-btn span{font-size:11.5px;font-weight:600;color:var(--text);text-align:center;line-height:1.2}
 .launch-log{height:110px;min-height:80px;border-radius:10px;border:1px solid var(--border);background:#000;padding:10px 14px;overflow-y:auto;font-family:var(--font-mono);font-size:12px;line-height:1.6;white-space:pre-wrap;color:#39ff14}
 .launch-log .l-ok{color:#39ff14}.launch-log .l-warn{color:#ffb300}.launch-log .l-err{color:#ff5252}.launch-log .l-info{color:#4dd0e1}
+/* Pentest Kit */
+.pt-layout{flex:1;display:flex;flex-direction:column;padding:10px;gap:10px;overflow:hidden}
+.pt-grid{flex:1;overflow-y:auto;display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));align-content:start}
+.pt-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.pt-card h3{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:600;display:flex;align-items:center;gap:6px}
+.pt-card h3 svg{width:14px;height:14px;color:var(--accent)}
+.pt-input{flex:1;background:#0d0f12;border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:var(--font-mono);font-size:13px;padding:9px 10px;outline:none;min-width:0}
+.pt-input:focus{border-color:var(--accent)}
+.pt-row{display:flex;gap:6px;align-items:center}
+.pt-list{max-height:160px;overflow-y:auto;display:flex;flex-direction:column;gap:4px}
+.pt-item{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:6px;font-family:var(--font-mono);font-size:12px;background:#0d0f12;border:1px solid var(--border)}
+.pt-item .auth{margin-left:auto;font-size:10px;padding:2px 8px;border-radius:999px;font-weight:700;flex-shrink:0}
+.auth-yes{background:rgba(57,255,20,.15);color:#39ff14}
+.auth-no{background:rgba(255,82,82,.15);color:#ff5252}
+.pt-phase{padding:7px 10px;border-radius:6px;background:#0d0f12;border:1px solid var(--border);font-size:12px;display:flex;align-items:center;gap:8px;cursor:pointer;font-family:var(--font-mono)}
+.pt-phase.done{border-color:#39ff14;color:#39ff14}
+.pt-cmd{background:#000;border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-family:var(--font-mono);font-size:11.5px;color:#39ff14;white-space:pre-wrap;word-break:break-all;max-height:120px;overflow-y:auto}
+.pt-banner{font-size:11px;color:var(--term-amber);font-family:var(--font-mono);line-height:1.5;padding:8px 10px;border-radius:6px;background:rgba(255,179,0,.08);border:1px solid rgba(255,179,0,.3)}
+select.pt-sel{background:#0d0f12;border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:var(--font-mono);font-size:12px;padding:8px;outline:none}
 #toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--card);border:1px solid var(--accent);color:var(--text);padding:12px 22px;border-radius:10px;font-size:13px;font-weight:600;z-index:99;transition:transform .3s;box-shadow:0 10px 30px rgba(0,0,0,.5);font-family:var(--font-head)}
 #toast.show{transform:translateX(-50%) translateY(0)}
 @media (max-width:760px){
@@ -161,6 +180,10 @@ input[type=range]{width:110px;accent-color:var(--accent)}
   <button class="tab-btn" data-tab="unity">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
     Unity
+  </button>
+  <button class="tab-btn" data-tab="pt">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    Pentest
   </button>
 </nav>
 
@@ -238,6 +261,49 @@ input[type=range]{width:110px;accent-color:var(--accent)}
           <div class="slider-grp">gravedad <input type="range" id="gravSlider" min="0" max="30" value="9.8" step="0.1"><span id="gravVal" style="color:var(--accent);min-width:34px">9.8</span></div>
         </div>
         <div class="script-view" id="scriptView">// Selecciona un script de la lista para ver su contenido.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-pt">
+    <div class="pt-layout">
+      <div class="pt-banner">USO ETICO EXCLUSIVO: solo sobre sistemas de tu propiedad o con autorizacion escrita. Genera comandos de reconocimiento/escaneo; NO ejecuta exploits ni genera payloads.</div>
+      <div class="pt-grid">
+        <div class="pt-card">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Alcance (Scope)</h3>
+          <div class="pt-row"><input class="pt-input" id="ptTarget" placeholder="IP o dominio autorizado…"><button class="btn ghost" id="ptAdd" style="min-height:38px;padding:6px 12px;font-size:12px">+ Añadir</button></div>
+          <div class="pt-list" id="ptScopeList"></div>
+        </div>
+        <div class="pt-card">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Metodología</h3>
+          <div id="ptPhases" style="display:flex;flex-direction:column;gap:6px"></div>
+        </div>
+        <div class="pt-card">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>Generador de comandos</h3>
+          <div class="pt-row">
+            <select class="pt-sel" id="ptTool">
+              <option value="nmap-ping">nmap · ping sweep</option>
+              <option value="nmap-ports">nmap · puertos top</option>
+              <option value="nmap-svc">nmap · servicios/version</option>
+              <option value="nmap-udp">nmap · UDP rapido</option>
+              <option value="whatweb">whatweb · fingerprint web</option>
+              <option value="nikto">nikto · escaneo web</option>
+              <option value="gobuster">gobuster · directorios</option>
+              <option value="wpscan">wpscan · WordPress</option>
+              <option value="masscan">masscan · rango rapido</option>
+              <option value="dnsenum">dnsenum · enumeracion DNS</option>
+            </select>
+            <input class="pt-input" id="ptCmdTarget" placeholder="objetivo…">
+          </div>
+          <div class="pt-cmd" id="ptCmdOut"># selecciona herramienta y objetivo autorizado</div>
+          <button class="btn primary" id="ptGen" style="min-height:40px;padding:8px 14px;font-size:12px">Generar comando</button>
+        </div>
+        <div class="pt-card">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Hallazgos &amp; Reporte</h3>
+          <div class="pt-row"><input class="pt-input" id="ptFinding" placeholder="Nuevo hallazgo…"><select class="pt-sel" id="ptSev"><option>Info</option><option>Low</option><option>Medium</option><option>High</option><option>Critical</option></select><button class="btn ghost" id="ptAddFind" style="min-height:38px;padding:6px 10px;font-size:11px">+</button></div>
+          <div class="pt-list" id="ptFindingsList"></div>
+          <button class="btn" id="ptReport" style="min-height:40px;padding:8px 14px;font-size:12px">Exportar reporte .md</button>
+        </div>
       </div>
     </div>
   </section>
@@ -571,6 +637,29 @@ const cmds={
       .catch(e=>termPrint('<span class="err">✘ '+esc(e.message)+'</span>'));
     return null;
   },
+  scope(args){
+    const sub=args[0];
+    if(sub==='list'||!sub){ return '<span class="info">Alcance:</span>\n'+(Pentest.scope.length?Pentest.scope.map(s=>'  '+s.target+' — '+(s.auth?'<span style="color:#39ff14">AUTORIZADO</span>':'<span style="color:#ff5252">SIN AUTORIZAR</span>')).join('\n'):'  (vacio)'); }
+    if(sub==='add'&&args[1]){ const t=args[1]; if(!Pentest.scope.find(s=>s.target===t)){Pentest.scope.push({target:t,auth:false,added:new Date().toISOString()});Pentest.save();Pentest.renderScope();} return '<span class="info">Anadido: '+t+' (marca con "scope auth '+t+'")</span>'; }
+    if(sub==='auth'&&args[1]){ const s=Pentest.scope.find(x=>x.target===args[1]); if(!s)return'<span class="err">No en alcance: '+args[1]+'</span>'; s.auth=!s.auth;Pentest.save();Pentest.renderScope(); return '<span class="info">'+args[1]+': '+(s.auth?'AUTORIZADO':'revocado')+'</span>'; }
+    return '<span class="warn">Uso: scope add &lt;obj&gt; · scope auth &lt;obj&gt; · scope list</span>';
+  },
+  audit(args){
+    if(!args.length) return '<span class="warn">Uso: audit &lt;objetivo autorizado&gt;</span>';
+    const t=args[0]; const s=Pentest.scope.find(x=>x.target===t);
+    if(!s||!s.auth) return '<span class="err">BLOQUEADO: '+t+' no esta autorizado. Etica: scope add '+t+' → scope auth '+t+'</span>';
+    switchTab('pt');
+    return '<span class="info">Plan de reconocimiento para '+t+':</span>\n  $ '+Pentest.genCmd('nmap-ping',t)+'\n  $ '+Pentest.genCmd('nmap-ports',t)+'\n  $ '+Pentest.genCmd('nmap-svc',t)+'\n  $ '+Pentest.genCmd('whatweb',t)+'\n<span class="warn">(Ejecuta en tu Kali real; este entorno solo genera comandos.)</span>';
+  },
+  checklist(){
+    const names={recon:'Reconocimiento',scan:'Escaneo',exploit:'Explotacion',post:'Post-explotacion',report:'Reporte'};
+    return '<span class="info">Metodologia:</span>\n'+Object.keys(names).map(k=>'  ['+(Pentest.phases[k]?'x':' ')+'] '+names[k]).join('\n')+'\n<span class="warn">Toca las fases en la pestana Pentest para marcarlas.</span>';
+  },
+  findings(){
+    if(!Pentest.findings.length) return '(sin hallazgos)';
+    return '<span class="info">Hallazgos:</span>\n'+Pentest.findings.map(f=>'  ['+f.sev+'] '+f.title).join('\n');
+  },
+  report(){ Pentest.report(); return '<span class="info">→ Reporte .md exportado.</span>'; },
   python(){ switchTab('py'); return '<span class="info">→ Intérprete Python…</span>'; },
   unity(){ switchTab('unity'); return '<span class="info">→ Unity Lab…</span>'; }
 };
@@ -791,6 +880,104 @@ $('#gravSlider').addEventListener('input',function(){Unity.gravity=parseFloat(th
 $('#expAll').addEventListener('click',()=>{const data={py_scripts:LS.get('py_scripts',{}),cs_templates:CS_SHARP,unity_scene:LS.get('unity_scene',[]),fs:FS,apibase:API_BASE,exportado:new Date().toISOString()};download('codeforge_backup.json',JSON.stringify(data,null,2),'application/json');toast('Copia de seguridad exportada (datos reales)');});
 $('#impAll').addEventListener('click',()=>$('#impFile').click());
 $('#impFile').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(d.py_scripts)LS.set('py_scripts',d.py_scripts);if(d.cs_templates){Object.assign(CS_SHARP,d.cs_templates);LS.set('cs_templates',CS_SHARP);}if(d.unity_scene)LS.set('unity_scene',d.unity_scene);if(d.fs){FS=d.fs;saveFS();}if(d.apibase){API_BASE=d.apibase;LS.set('apibase',API_BASE);}toast('Importado. Recarga para aplicar escena/FS.');refreshPyLoad();Unity.refreshProj();}catch(err){toast('Archivo inválido');}};r.readAsText(f);e.target.value='';});
+/* ============================================================================
+   PENTEST KIT — metodologia, gestor de alcance con autorizacion obligatoria,
+   generador de comandos de reconocimiento/escaneo y reporte.
+   [GUARDARRAIL ETICO] no genera payloads ni ejecuta exploits; el generador se
+   bloquea si el objetivo no esta marcado como AUTORIZADO. Datos en localStorage.
+============================================================================ */
+const Pentest={
+  scope: LS.get('pt_scope',[]),
+  phases: LS.get('pt_phases',{recon:false,scan:false,exploit:false,post:false,report:false}),
+  findings: LS.get('pt_findings',[]),
+  save(){ LS.set('pt_scope',this.scope); LS.set('pt_phases',this.phases); LS.set('pt_findings',this.findings); },
+  esc2(s){return String(s).replace(/</g,'&lt;').replace(/>/g,'&gt;');},
+  renderScope(){
+    const el=$('#ptScopeList'); el.innerHTML='';
+    if(!this.scope.length){el.innerHTML='<div style="font-size:11px;color:var(--muted);font-family:var(--font-mono);padding:4px">Sin objetivos en alcance.</div>';return;}
+    this.scope.forEach((s)=>{
+      const d=document.createElement('div');d.className='pt-item';
+      d.innerHTML='<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1">'+this.esc2(s.target)+'</span><span class="auth '+(s.auth?'auth-yes':'auth-no')+'">'+(s.auth?'AUTORIZADO':'SIN AUTORIZAR')+'</span>';
+      d.addEventListener('click',()=>{ s.auth=!s.auth; Pentest.save(); Pentest.renderScope(); toast(s.auth?'Autorizado: '+s.target:'Revocado: '+s.target); });
+      el.appendChild(d);
+    });
+  },
+  renderPhases(){
+    const names={recon:'1. Reconocimiento',scan:'2. Escaneo',exploit:'3. Explotacion (solo con auth)',post:'4. Post-explotacion',report:'5. Reporte'};
+    const el=$('#ptPhases');el.innerHTML='';
+    Object.keys(names).forEach(k=>{
+      const d=document.createElement('div');d.className='pt-phase'+(Pentest.phases[k]?' done':'');
+      d.innerHTML='<span>'+names[k]+'</span><span style="margin-left:auto">'+(Pentest.phases[k]?'OK':'')+'</span>';
+      d.addEventListener('click',()=>{ Pentest.phases[k]=!Pentest.phases[k]; Pentest.save(); Pentest.renderPhases(); });
+      el.appendChild(d);
+    });
+  },
+  renderFindings(){
+    const el=$('#ptFindingsList');el.innerHTML='';
+    if(!this.findings.length){el.innerHTML='<div style="font-size:11px;color:var(--muted);font-family:var(--font-mono);padding:4px">Sin hallazgos.</div>';return;}
+    this.findings.forEach((f,i)=>{
+      const d=document.createElement('div');d.className='pt-item';
+      const colors={Critical:'#ff5252',High:'#ff8a65',Medium:'#ffb300',Low:'#4dd0e1',Info:'#9a978f'};
+      d.innerHTML='<span style="color:'+colors[f.sev]+';font-weight:700;min-width:56px;flex-shrink:0">['+f.sev+']</span><span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+this.esc2(f.title)+'</span><button class="del" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:14px;padding:0 4px">×</button>';
+      d.querySelector('.del').addEventListener('click',()=>{ Pentest.findings.splice(i,1); Pentest.save(); Pentest.renderFindings(); });
+      el.appendChild(d);
+    });
+  },
+  genCmd(tool,target){
+    const t=target.trim(); const slug=t.replace(/[^a-z0-9]/gi,'_');
+    switch(tool){
+      case 'nmap-ping': return 'nmap -sn '+t+' -oN recon_ping_'+slug+'.txt';
+      case 'nmap-ports': return 'nmap --top-ports 1000 -sT -Pn '+t+' -oN scan_tcp_'+slug+'.txt';
+      case 'nmap-svc': return 'nmap -sV -sC -Pn -p- --min-rate 1000 '+t+' -oN services_'+slug+'.txt';
+      case 'nmap-udp': return 'sudo nmap -sU --top-ports 100 -Pn '+t+' -oN udp_'+slug+'.txt';
+      case 'whatweb': return 'whatweb -a 3 -v http://'+t;
+      case 'nikto': return 'nikto -h http://'+t+' -output nikto_'+slug+'.txt';
+      case 'gobuster': return 'gobuster dir -u http://'+t+' -w /usr/share/wordlists/dirb/common.txt -o gobuster_'+slug+'.txt';
+      case 'wpscan': return 'wpscan --url http://'+t+' --enumerate u,vp --random-user-agent';
+      case 'masscan': return 'sudo masscan '+t+' -p1-65535 --rate=1000 -oL masscan_'+slug+'.txt';
+      case 'dnsenum': return 'dnsenum --noreverse '+t;
+      default: return '# herramienta no reconocida';
+    }
+  },
+  report(){
+    const lines=['# Informe de Auditoria de Seguridad','','**Fecha:** '+new Date().toISOString(),'','## Alcance (objetivos autorizados)',''];
+    this.scope.filter(s=>s.auth).forEach(s=>lines.push('- `'+s.target+'`'));
+    if(!this.scope.some(s=>s.auth)) lines.push('_(sin objetivos autorizados)_');
+    lines.push('','## Fases de metodologia','');
+    const names={recon:'Reconocimiento',scan:'Escaneo',exploit:'Explotacion',post:'Post-explotacion',report:'Reporte'};
+    Object.keys(names).forEach(k=>lines.push('- ['+(this.phases[k]?'x':' ')+'] '+names[k]));
+    lines.push('','## Hallazgos','');
+    if(!this.findings.length) lines.push('Sin hallazgos registrados.');
+    else this.findings.forEach(f=>lines.push('- **['+f.sev+']** '+f.title));
+    lines.push('','---','*Informe generado por CodeForge Pentest Kit. Auditoria realizada bajo autorizacion escrita.');
+    download('informe_auditoria.md', lines.join('\n'), 'text/markdown');
+    toast('Reporte exportado');
+  },
+  init(){
+    $('#ptAdd').addEventListener('click',()=>{
+      const t=$('#ptTarget').value.trim(); if(!t) return;
+      if(!this.scope.find(s=>s.target===t)){ this.scope.push({target:t,auth:false,added:new Date().toISOString()}); this.save(); this.renderScope(); toast('Anadido a alcance. Tocalo para marcar AUTORIZADO.'); }
+      $('#ptTarget').value='';
+    });
+    $('#ptGen').addEventListener('click',()=>{
+      const t=$('#ptCmdTarget').value.trim();
+      if(!t){ $('#ptCmdOut').textContent='# indica un objetivo'; return; }
+      const inScope=this.scope.find(s=>s.target===t);
+      if(!inScope || !inScope.auth){
+        $('#ptCmdOut').textContent='# BLOQUEADO: "'+t+'" no esta en el alcance o no esta autorizado. Anadelo en "Alcance" y marcalo como AUTORIZADO (uso etico).';
+        return;
+      }
+      $('#ptCmdOut').textContent='$ '+this.genCmd($('#ptTool').value,t);
+    });
+    $('#ptAddFind').addEventListener('click',()=>{
+      const f=$('#ptFinding').value.trim(); if(!f) return;
+      this.findings.push({title:f, sev:$('#ptSev').value}); this.save(); this.renderFindings(); $('#ptFinding').value='';
+    });
+    $('#ptReport').addEventListener('click',()=>this.report());
+    this.renderScope(); this.renderPhases(); this.renderFindings();
+  }
+};
+Pentest.init();
 if(typeof THREE!=='undefined') Unity.init();
 else window.addEventListener('load',()=>setTimeout(Unity.init,300));
 Unity.refreshProj();
